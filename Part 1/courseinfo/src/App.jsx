@@ -26,20 +26,20 @@ const App = () => {
   )
 }
 
-const Header = (props) => {
-  console.log(props)
+const Header = ({course}) => {
+  console.log(course)
   return (
     <>
-      <h1> {props.course} </h1>
+      <h1> {course} </h1>
     </>
   )
 }
 
-const Part = (props) => {
+const Part = ({part, exercise}) => {
   return (
     <>
       <p>
-        {props.part} {props.exercise}
+        {part} {exercise}
       </p>
     </>
   )
