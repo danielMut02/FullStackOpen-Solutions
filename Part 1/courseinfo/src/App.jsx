@@ -26,43 +26,21 @@ const App = () => {
   )
 }
 
-const Header = ({course}) => {
-  console.log(course)
-  return (
-    <>
-      <h1> {course} </h1>
-    </>
-  )
-}
+const Header = ({course}) => <h1> {course} </h1>
 
-const Part = ({part, exercise}) => {
-  return (
-    <>
-      <p>
-        {part} {exercise}
-      </p>
-    </>
-  )
-}
+const Part = ({part, exercise}) => <p>{part} {exercise}</p>
 
 const Content = (props) => {
   console.log(props)
   return (
     <div>
-      <Part part = {props.parts[0].name} exercise = {props.parts[0].exercises}  />
+      <Part part = {props.parts[0].name} exercise = {props.parts[0].exercises} />
       <Part part = {props.parts[1].name} exercise = {props.parts[1].exercises} />
       <Part part = {props.parts[2].name} exercise = {props.parts[2].exercises} />
     </div>
   )
 }
 
-const Total = (props) => {
-  console.log(props)
-  return (
-    <>
-      <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
-    </>
-  )
-}
+const Total = (props) => <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
 
 export default App
