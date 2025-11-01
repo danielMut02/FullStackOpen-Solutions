@@ -4,7 +4,7 @@ const Display = ({title}) => <h1>{title}</h1>
 
 const Button = ({onClick, text}) => <button onClick = {onClick}>{text}</button>
 
-const Stat = ({text, value}) => <p>{text} {value}</p> 
+const Stat = ({text, value, text1}) => <p>{text} {value} {text1}</p> 
 
 const App = () => {
   const titles = ["give feedback", "statistics"]
@@ -12,29 +12,49 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const [total, setTotal] = useState(0)
+  const [result, setResult] = useState(0)
+  const [positive, setPositive] = useState(0)
 
   const handleClickGood = () => {
-    console.log("good before", good)
     const updatedGood = good + 1
+    const updatedTotal = updatedGood + neutral + bad 
+    const updatedAverage = (updatedGood - bad) / updatedTotal
+    const updatedPositive = (updatedGood / updatedTotal) * 100
     setGood(updatedGood)
-    console.log("good after", updatedGood)
+    setTotal(updatedTotal)
+    setResult(updatedAverage)
+    setPositive(updatedPositive)
   }
 
   const handleClickNeutral = () => {
     const updatedNeutral = neutral + 1
+    const updatedTotal = good + updatedNeutral + bad 
+    const updatedPositive = (good / updatedTotal) * 100
     setNeutral(updatedNeutral)
+    setTotal(updatedTotal)
+    setPositive(updatedPositive)
   }
+
   const handleClickBad = () => {
     const updatedBad = bad + 1
-    setBad(updatedBad)  
+    const updatedTotal = good + neutral + updatedBad 
+    const updatedAverage = (good - updatedBad) / updatedTotal
+    const updatedPositive = (good / updatedTotal) * 100
+    setBad(updatedBad)
+    setTotal(updatedTotal)
+    setResult(updatedAverage)
+    setPositive(updatedPositive)
   }
 
   const setZero = () => {
     setGood(0)
     setBad(0)
     setNeutral(0)
+    setTotal(0)
+    setResult(0)
+    setPositive(0)
   }
-
 
   return (
     <div>
@@ -46,6 +66,9 @@ const App = () => {
       <Stat text={"good"} value={good} />
       <Stat text={"neutral"} value={neutral} />
       <Stat text={"bad"} value={bad} />
+      <Stat text={"all"} value={total} />
+      <Stat text={"average"} value={result} />
+      <Stat text={"positive"} value={positive} text1 = {"%"} />
       <Button onClick={setZero} text={"reset"} />
     </div>
   )
