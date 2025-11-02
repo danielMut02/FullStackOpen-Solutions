@@ -4,20 +4,25 @@ const Display = ({title}) => <h1>{title}</h1>
 
 const Button = ({onClick, text}) => <button onClick = {onClick}>{text}</button>
 
-const StatisticLine = ({text, value, text1}) => <p>{text} {value} {text1}</p>
-
+const StatisticLine = ({text, value, text1}) => (
+  <tr>
+    <td>{text}</td>
+    <td>{value} {text1}</td>
+  </tr>
+)
 const Statistics = (props) => {
   if (props.total === 0) return <p>No feedback given</p>
 
   return (
-  <div>
-    <StatisticLine text = "good" value = {props.valueGood} />
-    <StatisticLine text = "neutral" value = {props.valueNeutral} />
-    <StatisticLine text = "bad" value = {props.valueBad} />
-    <StatisticLine text = "all" value = {props.valueTotal} />
-    <StatisticLine text = "average" value = {props.valueAverage} />
-    <StatisticLine text = "positive" value = {props.valuePositive} text1 = {"%"} />
-  </div>)
+  <table>
+      <StatisticLine text = "good" value = {props.valueGood} text1 = "" /> 
+      <StatisticLine text = "neutral" value = {props.valueNeutral} text1 = "" />
+      <StatisticLine text = "bad" value = {props.valueBad} text1 = "" />
+      <StatisticLine text = "all" value = {props.valueTotal} text1 = "" />
+      <StatisticLine text = "average" value = {props.valueAverage} text1 = "" />
+      <StatisticLine text = "positive" value = {props.valuePositive} text1 = {"%"} />
+  </table>
+)
 }
 
 const App = () => {
