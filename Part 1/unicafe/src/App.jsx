@@ -4,16 +4,19 @@ const Display = ({title}) => <h1>{title}</h1>
 
 const Button = ({onClick, text}) => <button onClick = {onClick}>{text}</button>
 
+const StatisticLine = ({text, value, text1}) => <p>{text} {value} {text1}</p>
+
 const Statistics = (props) => {
   if (props.total === 0) return <p>No feedback given</p>
 
-  return (<div>
-    <p>{props.textGood} {props.valueGood}</p>
-    <p>{props.textNeutral} {props.valueNeutral}</p>
-    <p>{props.textBad} {props.valueBad}</p>
-    <p>{props.textTotal} {props.valueTotal}</p>
-    <p>{props.textAverage} {props.valueAverage}</p>
-    <p>{props.textPositive} {props.valuePositive} {props.textPorcent}</p>
+  return (
+  <div>
+    <StatisticLine text = "good" value = {good} />
+    <StatisticLine text = "neutral" value = {neutral} />
+    <StatisticLine text = "bad" value = {bad} />
+    <StatisticLine text = "all" value = {total} />
+    <StatisticLine text = "average" value = {result} />
+    <StatisticLine text = "positive" value = {positive} text1 = {"%"} />
   </div>)
 }
 
@@ -30,10 +33,10 @@ const App = () => {
   const handleClickGood = () => {
     const updatedGood = good + 1
     const updatedTotal = updatedGood + neutral + bad 
-    const updatedAverage = (updatedGood - bad) / updatedTotal
+    const updatedAverage = updatedTotal === 0 ? 0 : (updatedGood - bad) / updatedTotal
     const updatedPositive = (updatedGood / updatedTotal) * 100
     setGood(updatedGood)
-    setTotal(updatedTotal)
+    setTotal(updatedTotal) 
     setResult(updatedAverage)
     setPositive(updatedPositive)
   }
@@ -74,14 +77,7 @@ const App = () => {
       <Button onClick={handleClickNeutral} text = {"neutral"} />
       <Button onClick={handleClickBad} text = {"bad"} />
       <Display title = {titles[1]} />
-      <Statistics total = {total}
-                  textGood = {"good"} valueGood = {good} 
-                  textNeutral = {"neutral"} valueNeutral = {neutral}   
-                  textBad = {"bad"} valueBad = {bad}
-                  textTotal = {"all"} valueTotal = {total}
-                  textAverage = {"average"} valueAverage = {result}
-                  textPositive = {"positive"} valuePositive = {positive} textPorcent = {"%"}        
-      />
+      <Statistics total = {total} />
       <Button onClick={setZero} text={"reset"} />
     </div>
   )
