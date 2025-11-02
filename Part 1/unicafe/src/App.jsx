@@ -4,7 +4,7 @@ const Display = ({title}) => <h1>{title}</h1>
 
 const Button = ({onClick, text}) => <button onClick = {onClick}>{text}</button>
 
-const Stat = ({text, value, text1}) => <p>{text} {value} {text1}</p> 
+const Statistics = ({text, value, text1}) => <p>{text} {value} {text1}</p> 
 
 const App = () => {
   const titles = ["give feedback", "statistics"]
@@ -63,12 +63,12 @@ const App = () => {
       <Button onClick={handleClickNeutral} text = {"neutral"} />
       <Button onClick={handleClickBad} text = {"bad"} />
       <Display title = {titles[1]} />
-      <Stat text={"good"} value={good} />
-      <Stat text={"neutral"} value={neutral} />
-      <Stat text={"bad"} value={bad} />
-      <Stat text={"all"} value={total} />
-      <Stat text={"average"} value={result} />
-      <Stat text={"positive"} value={positive} text1 = {"%"} />
+      <Statistics text={"good"} value={good} />
+      <Statistics text={"neutral"} value={neutral} />
+      <Statistics text={"bad"} value={bad} />
+      <Statistics text={"all"} value={total} />
+      <Statistics text={"average"} value={result} />
+      <Statistics text={"positive"} value={positive} text1 = {"%"} />
       <Button onClick={setZero} text={"reset"} />
     </div>
   )
