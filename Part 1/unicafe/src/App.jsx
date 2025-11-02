@@ -11,12 +11,12 @@ const Statistics = (props) => {
 
   return (
   <div>
-    <StatisticLine text = "good" value = {good} />
-    <StatisticLine text = "neutral" value = {neutral} />
-    <StatisticLine text = "bad" value = {bad} />
-    <StatisticLine text = "all" value = {total} />
-    <StatisticLine text = "average" value = {result} />
-    <StatisticLine text = "positive" value = {positive} text1 = {"%"} />
+    <StatisticLine text = "good" value = {props.valueGood} />
+    <StatisticLine text = "neutral" value = {props.valueNeutral} />
+    <StatisticLine text = "bad" value = {props.valueBad} />
+    <StatisticLine text = "all" value = {props.valueTotal} />
+    <StatisticLine text = "average" value = {props.valueAverage} />
+    <StatisticLine text = "positive" value = {props.valuePositive} text1 = {"%"} />
   </div>)
 }
 
@@ -77,7 +77,14 @@ const App = () => {
       <Button onClick={handleClickNeutral} text = {"neutral"} />
       <Button onClick={handleClickBad} text = {"bad"} />
       <Display title = {titles[1]} />
-      <Statistics total = {total} />
+      <Statistics total = {total}
+                  valueGood = {good}
+                  valueNeutral = {neutral}
+                  valueBad = {bad}
+                  valueTotal = {total}
+                  valueAverage = {result}
+                  valuePositive = {positive}
+      />
       <Button onClick={setZero} text={"reset"} />
     </div>
   )
