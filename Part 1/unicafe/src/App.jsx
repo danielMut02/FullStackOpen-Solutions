@@ -10,6 +10,7 @@ const StatisticLine = ({text, value, text1}) => (
     <td>{value} {text1}</td>
   </tr>
 )
+
 const Statistics = (props) => {
   if (props.total === 0) return <p>No feedback given</p>
 
@@ -22,7 +23,7 @@ const Statistics = (props) => {
       <StatisticLine text = "average" value = {props.valueAverage} text1 = "" />
       <StatisticLine text = "positive" value = {props.valuePositive} text1 = {"%"} />
   </table>
-)
+  )
 }
 
 const App = () => {
@@ -58,7 +59,7 @@ const App = () => {
   const handleClickBad = () => {
     const updatedBad = bad + 1
     const updatedTotal = good + neutral + updatedBad 
-    const updatedAverage = (good - updatedBad) / updatedTotal
+    const updatedAverage = updatedTotal === 0 ? 0 : (good - updatedBad) / updatedTotal
     const updatedPositive = (good / updatedTotal) * 100
     setBad(updatedBad)
     setTotal(updatedTotal)
