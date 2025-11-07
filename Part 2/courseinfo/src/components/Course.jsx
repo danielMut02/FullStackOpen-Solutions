@@ -13,11 +13,11 @@ const Content = ({course}) => {
   )
 }
 
-const Total = (props) => <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises + props.parts[3].exercises}</p>
+const Total = (props) => <p><b>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises + props.parts[3].exercises}</b></p>
 
 const Course = ({course}) => {
     return (
-    <div>
+    <div key = {course.id}>
       <Header course = {course.name} />
       <Content course = {course} />
       <Total parts = {course.parts} />

@@ -26,11 +26,7 @@ const App = () => {
         id: 4
       }
     ]
-  }
-
-  const result = course.parts.map(testing => testing.name)
-  console.log(result)
-  
+  }  
 
   return (
     <Course course = {course} />
