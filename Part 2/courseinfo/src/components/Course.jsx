@@ -3,9 +3,7 @@ const Header = ({course}) => <h1> {course} </h1>
 const Part = ({part, exercise}) => <p>{part} {exercise}</p>
 
 const Content = ({course}) => {
-    //const content = course.map(course => course.parts)
-    //console.log(content)
-
+    
   return (
     <div>
     {course.map(parte =>
