@@ -43,7 +43,7 @@ const App = () => {
       })
       
     } else {
-      if ((window.confirm(`${newName} is already added to phonebook, replace the old number with a new one ?`))) {
+      if ((window.confirm(`${newName} is already added to phonebook. Replace the old number with a new one ?`))) {
         const changedNumber = { ...existingPerson, number: newNumber }
         contactService
           .update(existingPerson.id, changedNumber)
