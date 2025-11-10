@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
+import contactService from './services/contacts'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Person from './components/Person'
@@ -14,31 +14,34 @@ const App = () => {
 
   const hook = () => {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)        
+    contactService
+      .getAll()
+      .then(initialContacts => {
+        setPersons(initialContacts)       
       })    
   }
 
   useEffect(hook, [])
 
 
-  const addName = (event) => {
+  const addContact = (event) => {
     event.preventDefault()
     const personObject = {
       name: newName,
-      number : newNumber,
-      id : persons.length + 1
+      number : newNumber
     }
 
     const existingPerson = persons.find(person => person.name === newName)
 
     if (!existingPerson) {
-      setPersons(persons.concat(personObject))
-      setNewName('')
-      setNewNumber('')
+      contactService
+        .create(personObject)
+        .then(returnedContact => {
+          setPersons(persons.concat(returnedContact))
+          setNewName('')
+          setNewNumber('')
+      })
+      
     } else {
       window.alert(`${newName} is already added to phonebook`)
     }
@@ -68,7 +71,7 @@ const App = () => {
       <h2>add a new contact</h2>
 
       <PersonForm 
-        onSubmit = {addName}
+        onSubmit = {addContact}
 
         value = {newName}
         onChange = {handleNameChange}
