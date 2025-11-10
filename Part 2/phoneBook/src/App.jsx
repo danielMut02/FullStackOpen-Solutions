@@ -59,6 +59,19 @@ const App = () => {
     setSearch(event.target.value)
   }
 
+  const removeContact = id => {
+    const contact = persons.find(cont => cont.id === id ) 
+
+    if (window.confirm(`Delete ${contact.name} ?`)) {
+      contactService
+        .removeContact(id)
+        setPersons(persons.filter(n => n.id !== id))
+       
+    } else {
+      console.log(`Contact ${contact.name} not deleted`)      
+    }
+  }
+
   const filteredPersons = persons.filter(person => person.name.toLowerCase().includes(search.trim().toLowerCase()))
 
 
@@ -85,10 +98,11 @@ const App = () => {
 
       <h2>Numbers</h2>
 
-        {filteredPersons.map(person =>
-          <Person key = {person.id} name = {person.name} number = {person.number} />
-        )}
-        
+          {filteredPersons.map(person =>
+              <Person key = {person.id} name = {person.name} number = {person.number} onClick={() => removeContact(person.id)} />
+          )
+          }
+         
     </div>
   )
 }
