@@ -3,6 +3,7 @@ import contactService from './services/contacts'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Person from './components/Person'
+import Notification from './components/Notification'
 import { useEffect } from 'react'
 
 
@@ -11,6 +12,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [search, setSearch] = useState('')
+  const [notMessage, setMessage] = useState('')
 
   const hook = () => {
     console.log('effect')
@@ -38,6 +40,12 @@ const App = () => {
         .create(personObject)
         .then(returnedContact => {
           setPersons(persons.concat(returnedContact))
+          setMessage(
+              `Added ${returnedContact.name}`
+            )
+          setTimeout(() => {
+              setMessage(null)
+          }, 5000)
           setNewName('')
           setNewNumber('')
       })
@@ -49,7 +57,14 @@ const App = () => {
           .update(existingPerson.id, changedNumber)
           .then(returnedPerson => {
             setPersons(persons.map(person => person.id === existingPerson.id ? returnedPerson: person))
-          })
+            setMessage(
+              `Contact ${existingPerson.name} changed successfully`
+            )
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
+          }
+          )
       }
     }
   }
@@ -85,7 +100,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-
+        <Notification message={notMessage} />
         <Filter value = {search} onChange={handleSearchChange} placeholder = {'Type to search...'} />
 
       <h2>add a new contact</h2>
