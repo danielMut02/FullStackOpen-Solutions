@@ -46,6 +46,10 @@ h1 {
   margin-bottom: 10px;
 }
 
+.notify.error {
+  color: crimson;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

@@ -13,6 +13,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [search, setSearch] = useState('')
   const [notMessage, setMessage] = useState('')
+  const [isError, setError] = useState(false)
 
   const hook = () => {
     console.log('effect')
@@ -60,6 +61,7 @@ const App = () => {
             setMessage(
               `Contact ${existingPerson.name} changed successfully`
             )
+            setError(false)
             setTimeout(() => {
               setMessage(null)
             }, 5000)
@@ -68,6 +70,7 @@ const App = () => {
             setMessage(
               `${existingPerson.name} was already deleted from server`
             )
+            setError(true)
             setTimeout(() => {
               setMessage(null)
             }, 5000)
@@ -109,7 +112,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-        <Notification message={notMessage} />
+        <Notification message={notMessage} isError={isError} />
         <Filter value = {search} onChange={handleSearchChange} placeholder = {'Type to search...'} />
 
       <h2>add a new contact</h2>
