@@ -63,6 +63,15 @@ const App = () => {
             setTimeout(() => {
               setMessage(null)
             }, 5000)
+          })
+          .catch(error => {
+            setMessage(
+              `${existingPerson.name} was already deleted from server`
+            )
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
+            setPersons(persons.filter(p => p.name !== existingPerson.name))
           }
           )
       }
