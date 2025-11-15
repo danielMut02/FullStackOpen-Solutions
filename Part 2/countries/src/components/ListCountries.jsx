@@ -5,7 +5,7 @@ const ListCountries = ({land}) => {
         <>
             {land.length > 10 && (<div>Too many matches, specify another filter</div>)}
 
-            {land > 1 && land.length <=10 &&
+            {land.length > 1 && land.length <=10 &&
                 land.map(({ name }) => {
                     const landName = name.common
 
