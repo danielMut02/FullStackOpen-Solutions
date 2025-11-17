@@ -1,4 +1,5 @@
 import Country from "./Country";
+import Weather from "./Weather";
 
 const ListCountries = ({land, clickHandler, showLand}) => {
     return (
@@ -15,13 +16,16 @@ const ListCountries = ({land, clickHandler, showLand}) => {
                             {landName}{' '}
                             {!selectedCountry ? (<button onClick = {() => clickHandler(landName)}>show</button>) : "" }
                             {selectedCountry && (
-                                <Country 
-                                    name={landName}
-                                    capital={capital}
-                                    area={ area }
-                                    languages={ languages }
-                                    flag={ flags.png }
-                                />
+                                <>
+                                    <Country
+                                        name={landName}
+                                        capital={capital}
+                                        area={ area }
+                                        languages={ languages }
+                                        flag={ flags.png }
+                                    />
+                                    <Weather capital = {capital} />
+                                </>
                             )
 
                             }
@@ -38,6 +42,7 @@ const ListCountries = ({land, clickHandler, showLand}) => {
                         languages={ land[0].languages }
                         flag={ land[0].flags.png }
                     />
+                    <Weather capital = {land[0].capital} />
                 </>
 
             )}
