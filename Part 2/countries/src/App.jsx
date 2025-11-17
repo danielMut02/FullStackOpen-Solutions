@@ -4,8 +4,8 @@ import Filter from './components/Filter'
 import ListCountries from './components/ListCountries'
 
 const App = () => {
-  const [countries, setcountries] = useState([])
-  //const [countryInfo, setCountryInfo] = useState('')
+  const [countries, setCountries] = useState([])
+  const [showState, setShowState] = useState('')
   const [searchCountry, setSearch] = useState('')
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const App = () => {
     searchEngine
         .getAll()
         .then (response => {
-          setcountries(response)
+          setCountries(response)
         })    
   }, [])
 
@@ -22,6 +22,10 @@ const App = () => {
 
   const onSearch = (event) => {
     setSearch(event.target.value)
+  }
+
+  const handleShowButton = (countrySelector) => {
+    setShowState(countrySelector)
   }
 
   // {JSON.stringify(countryInfo, null, 2)} 
@@ -34,7 +38,7 @@ const App = () => {
         <Filter value={searchCountry} onChange={onSearch} placeholder={'Search a country'}  />
       <pre>
         
-        <ListCountries land={filterCountries} />
+        <ListCountries land = {filterCountries} clickHandler = {handleShowButton} showLand = {showState}  />
       </pre>
     </div>
   )

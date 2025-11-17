@@ -1,23 +1,36 @@
 import Country from "./Country";
 
-const ListCountries = ({land}) => {
+const ListCountries = ({land, clickHandler, showLand}) => {
     return (
         <>
             {land.length > 10 && (<div>Too many matches, specify another filter</div>)}
 
             {land.length > 1 && land.length <=10 &&
-                land.map(({ name }) => {
+                land.map(({ name, capital, area, languages, flags }) => {
                     const landName = name.common
+                    const selectedCountry = showLand === landName
 
                     return (
                         <div key={landName}>
-                            {landName}{' '} 
+                            {landName}{' '}
+                            {!selectedCountry ? (<button onClick = {() => clickHandler(landName)}>show</button>) : "" }
+                            {selectedCountry && (
+                                <Country 
+                                    name={landName}
+                                    capital={capital}
+                                    area={ area }
+                                    languages={ languages }
+                                    flag={ flags.png }
+                                />
+                            )
+
+                            }
                         </div>
                     )
                 })}
             
             {land.length === 1 && (
-                <>
+                <>               
                     <Country 
                         name={land[0].name.common}
                         capital={land[0].capital}
