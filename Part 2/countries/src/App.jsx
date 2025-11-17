@@ -1,43 +1,40 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
-import Country from './components/Country'
+import searchEngine from './services/searchEngine'
+import Filter from './components/Filter'
+import ListCountries from './components/ListCountries'
 
 const App = () => {
-  const [value, setValue] = useState('')
-  const [countryInfo, setCountryInfo] = useState({})
-  const [searchCountry, setSearch] = useState(null)
+  const [countries, setcountries] = useState([])
+  //const [countryInfo, setCountryInfo] = useState('')
+  const [searchCountry, setSearch] = useState('')
 
   useEffect(() => {
-    console.log('effect run, name is now', searchCountry)
+    console.log('fetching all countries...')
+    searchEngine
+        .getAll()
+        .then (response => {
+          setcountries(response)
+        })    
+  }, [])
 
-    // skip if currency is not defined
-    if (searchCountry) {
-      console.log('fetching names...')
-      axios
-        .get(`https://studies.cs.helsinki.fi/restcountries/api/name/${searchCountry}`)
-        .then(response => {
-          setCountryInfo(response.data.name)
-        })
-    }
-  }, [searchCountry])
-
-  const handleChange = (event) => {
-    setValue(event.target.value)
-  }
+  const filterCountries = 
+                          searchCountry === '' ? countries : countries.filter(country => country.name.common.toLowerCase().includes(searchCountry.toLowerCase()))
 
   const onSearch = (event) => {
-    event.preventDefault()
     setSearch(event.target.value)
   }
 
+  // {JSON.stringify(countryInfo, null, 2)} 
+
+  console.log(countries);
+  console.log(filterCountries);
+  
   return (
     <div>
-        Country: <input value={searchCountry} onChange={onSearch} />
+        <Filter value={searchCountry} onChange={onSearch} placeholder={'Search a country'}  />
       <pre>
-        {JSON.stringify(countryInfo, null, 2)}
         
-        <Country name={countryInfo.official} />
-
+        <ListCountries land={filterCountries} />
       </pre>
     </div>
   )
