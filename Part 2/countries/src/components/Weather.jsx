@@ -25,7 +25,7 @@ const Weather = ({capital}) => {
             <h2>Weather in {capital}</h2>
             <p>Temperature: {weatherData.temperature} Celsius </p>
             <img src = {`https://openweathermap.org/img/wn/${weatherData.icon}.png`} alt="Weather State icon" />
-            <p>Wind: {weatherData.windSpeed}</p>
+            <p>Wind: {weatherData.windSpeed} m/s</p>
         </>
     )
 }

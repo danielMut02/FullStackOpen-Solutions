@@ -24,7 +24,6 @@ const ListCountries = ({land, clickHandler, showLand}) => {
                                         languages={ languages }
                                         flag={ flags.png }
                                     />
-                                    <Weather capital = {capital} />
                                 </>
                             )
 
@@ -42,7 +41,7 @@ const ListCountries = ({land, clickHandler, showLand}) => {
                         languages={ land[0].languages }
                         flag={ land[0].flags.png }
                     />
-                    <Weather capital = {land[0].capital} />
+                    <Weather capital = {land[0].capital[0]} />
                 </>
 
             )}
