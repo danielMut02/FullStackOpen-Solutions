@@ -51,6 +51,43 @@ app.get('/api/persons/:id', (request, response) => {
     }   
 })
 
+const generateId = () => {
+  const maxId = persons.length > 0
+    ? Math.max(...persons.map(n => Number(n.id)))
+    : 0
+  return String(Math.floor(Math.random() * (maxId + 1) * 10))
+}
+
+app.post('/api/persons', (request, response) => {
+    const body = request.body
+    const existingPerson = persons.find(person => person.name === body.name)
+
+    // if the name is already in the phonebook, respond with: 400 bad request
+
+    if(existingPerson) {
+      return response.status(400).json({
+        error: "Contact already in phonebook. Name must be unique"
+      })
+    }
+    // if the received data has no name or number property, respond with: 400 bad request
+
+    if (!body.name || !body.number) {
+      return response.status(400).json({
+        error: "Vital contact info missing"
+      })
+    }
+
+    const contact = {
+      name: body.name,
+      number: body.number,
+      id: generateId()
+    }
+
+    console.log(contact)
+    persons = persons.concat(contact)
+    response.json(contact)
+})
+
 app.delete('/api/persons/:id', (request, response) => {
     const id = request.params.id
     persons = persons.filter(contact => contact.id !== id)
