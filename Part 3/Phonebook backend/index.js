@@ -32,7 +32,14 @@ let persons = [
     }
 ]
 
-app.use(morgan('tiny'))
+morgan.token('POST-data', (request) => {
+  if('POST' === request.method){
+    return JSON.stringify(request.body)
+  }
+  return ' '
+})
+
+app.use(morgan(':method :url :status - :response-time ms :POST-data'))
 
 app.get('/api/persons', (request, response) => {
   response.json(persons)
@@ -85,14 +92,13 @@ app.post('/api/persons', (request, response) => {
     }
 
     const contact = {
+      id: generateId(),
       name: body.name,
-      number: body.number,
-      id: generateId()
+      number: body.number
     }
 
     console.log(contact)
-    requestLogger(request, response)
-    persons = persons.concat(contact)
+    persons = persons.concat(contact)    
     response.json(contact)
 })
 
